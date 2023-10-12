@@ -6,6 +6,9 @@ import StepOneForm from "./FormSteps/StepOneForm";
 import StepTwoForm from "./FormSteps/StepTwoForm";
 import StepThreeForm from "./FormSteps/StepThreeForm";
 import StepFourForm from "./FormSteps/StepFourForm";
+import StepFiveForm from "./FormSteps/StepFiveForm";
+import StepSixForm from "./FormSteps/StepSixForm";
+import StepEightForm from "./FormSteps/StepEightForm";
 
 interface FormData {
 	propertyType: string;
@@ -65,10 +68,28 @@ const LeadForm = () => {
 		}));
 	};
 
+	function handleReset() {
+		setFormData({
+			propertyType: "",
+			zipCode: "",
+			installationPreference: "",
+			securityFeatures: [],
+			systemType: "",
+			entrances: "",
+			address: "",
+			firstName: "",
+			lastName: "",
+			email: "",
+			phone: "",
+			city: "",
+			state: "",
+		});
+	}
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		// Implement form submission logic here
 		console.log(formData);
+		handleReset();
 	};
 
 	// For getting the city and state
@@ -138,27 +159,40 @@ const LeadForm = () => {
 				{step === 4 && (
 					<StepFourForm formData={formData} handleChange={handleChange} />
 				)}
-				{/* Continue rendering other steps similarly */}
+				{/* Step 5 System Type */}
 				{step === 5 && (
-					<>
-						<h2 className="mb-4">Step 8: Your Details</h2>
-						{/* Render question 8 inputs here */}
-					</>
+					<StepFiveForm formData={formData} handleChange={handleChange} />
+				)}
+				{/* Step 6 Number Of Entrances */}
+				{step === 6 && (
+					<StepSixForm formData={formData} handleChange={handleChange} />
+				)}
+
+				{step === 7 && (
+					<StepEightForm formData={formData} handleChange={handleChange} />
 				)}
 
 				{/* Navigation buttons */}
 				<>
 					{step > 1 && (
-						<button className="btn btn-sm btn-neutral mr-4" onClick={prevStep}>
+						<button
+							type="button"
+							className="btn btn-sm btn-neutral mr-4"
+							onClick={prevStep}
+						>
 							Back
 						</button>
 					)}
-					{step < 5 && (
-						<button className="btn btn-sm btn-primary" onClick={nextStep}>
+					{step < 7 && (
+						<button
+							type="button"
+							className="btn btn-sm btn-primary"
+							onClick={nextStep}
+						>
 							Next
 						</button>
 					)}
-					{step === 5 && (
+					{step === 7 && (
 						<button className="btn btn-sm btn-accent" type="submit">
 							Submit
 						</button>
